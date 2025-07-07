@@ -11,6 +11,7 @@ Tele : t.me/Rilyzyishere
 */
 const { Telegraf, Markup } = require("telegraf");
 const fs = require("fs");
+const path = require('path');
 const chalk = require("chalk");
 const config = require("./config");
 const fetch = require("node-fetch");
