@@ -341,6 +341,7 @@ SpectraNoise V10 ga sakusei shita Telegram Bot de, uebu saito o kõgeki suru kin
 ├> /addowner
 ├> /delowner
 ├> /pair
+├> /delsesi
 ├
 ┠─ ▢ !
 ├─ - VzTZap
@@ -450,8 +451,30 @@ bot.command("pair", async (ctx) => {
         await ctx.replyWithMarkdown(PesanYgy);
     } catch (error) {
         console.error("Gagal pairing:", error);
-        await ctx.reply("Gagal melakukan pairing. Pastikan nomor valid");
+        await ctx.reply("Gagal melakukan pairing mungkin nomor tidak valid atau sudah terhubung, lakukan /delsesi terlebih dahulu !");
     }
+});
+
+bot.command('delsesi', async (ctx) => {
+ if (ctx.from.id !== config.OWNER_ID) return ctx.reply("You Not My Owner!");
+  try {
+    const sesiPath = path.resolve('./session');
+
+    if (fs.existsSync(sesiPath)) {
+      fs.rmSync(sesiPath, { recursive: true, force: true });
+      await ctx.reply('Succes Delete Session\nbot otomatis Restart Panel !');
+
+     
+      setTimeout(() => {
+        process.exit(1);
+      }, 1000);
+    } else {
+      await ctx.reply('Folder session tidak ditemukan.');
+    }
+  } catch (err) {
+    console.error('Gagal hapus session:', err);
+    await ctx.reply('Gagal menghapus folder session.');
+  }
 });
 bot.command("delprem", (ctx) => {
   if (!db.owners.includes(ctx.from.id)) {
@@ -499,8 +522,6 @@ const Reply = async (isTarget, ctx) => {
         console.error('Error sending:', error);
     });
 };
-
-// command bag nya jrtt
 bot.command("x", isPrem, async ctx => {
   if (!Ril) return ctx.reply("WhatsApp belum terhubung. Gunakan /pair untuk menghubungkan ");
 
@@ -516,7 +537,7 @@ bot.command("x", isPrem, async ctx => {
   await Reply(isTarget, ctx);
 });
 
-// Function lu
+// Function 
 async function HaloKak(isTarget) {
   if (Ril) Ril.sendMessage(isTarget, { text: "Halo Bang" });
 }
