@@ -9,7 +9,7 @@
   "author": "RilzX7",
   "license": "MIT",
   "dependencies": {
-    "@whiskeysockets/baileys": "github:RILLYZY/baileys",
+    "@whiskeysockets/baileys": "github:RILLYZY/bails",
     "telegraf": "^4.12.2",
     "pino": "^7.0.5",
     "chalk": "^4.1.2",
